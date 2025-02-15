@@ -1,10 +1,18 @@
 <template>
-  <h1>Welcome to Laravel with Vue JS!</h1>
+  <AppHeader />
+  <router-view></router-view>
 </template>
 <script>
+import AppHeader from './AppHeader.vue'
 export default {
-  name: 'Welcome',
+  name: 'App',
+
+  components: {
+    AppHeader: AppHeader
+  }  
 };
+
+
 </script>
 <style scoped>
 h1 {
