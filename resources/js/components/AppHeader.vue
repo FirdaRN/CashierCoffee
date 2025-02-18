@@ -222,10 +222,12 @@
 <ul class="sidebar-nav" id="sidebar-nav">
 
   <li class="nav-item">
-    <a class="nav-link " href="index.html">
-      <i class="bi bi-grid"></i>
-      <span>Dashboard</span>
-    </a>
+    <!-- <a class="nav-link " href="index.html"> -->
+      <router-link class="nav-link" id="home" :to="{ path:'/' }">
+        <i class="bi bi-grid"></i>
+        <span>Dashboard</span>
+      </router-link>
+    <!-- </a> -->
   </li><!-- End Dashboard Nav -->
 
   <li class="nav-item">
@@ -234,12 +236,12 @@
     </a>
     <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
       <li>
-        <router-link id="category" :to="{ name:'list' }">
+        <router-link id="category" :to="{ name:'category-list' }">
           <i class="bi bi-circle"></i><span>Kategori</span>
         </router-link>
       </li>
       <li>
-        <router-link id="stock" :to="{ name:'detail' }">
+        <router-link id="stock" :to="{ name:'stock-list' }">
           <i class="bi bi-circle"></i><span>Stok Barang</span>
         </router-link>
       </li>
