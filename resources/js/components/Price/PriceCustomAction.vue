@@ -13,7 +13,7 @@
     import VuetableFieldMixin from 'vue3-vuetable/src/components/VuetableFieldMixin.vue'
     export default {
         mixins:[VuetableFieldMixin],
-        name: 'stock-custom-action',
+        name: 'price-custom-action',
         props: {
             rowData: {
                 type: Object,

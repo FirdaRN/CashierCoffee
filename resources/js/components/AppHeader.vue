@@ -241,8 +241,8 @@
         </router-link>
       </li>
       <li>
-        <router-link id="stock" :to="{ name:'stock-list' }">
-          <i class="bi bi-circle"></i><span>Stok Barang</span>
+        <router-link id="price" :to="{ name:'price-list' }">
+          <i class="bi bi-circle"></i><span>Harga</span>
         </router-link>
       </li>
     </ul>

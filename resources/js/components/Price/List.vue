@@ -2,7 +2,7 @@
 <template>
 <main id="main" class="main">
 <div class="pagetitle">
-  <h1>Daftar Stok Barang</h1>
+  <h1>Daftar Harga</h1>
 </div><!-- End Page Title -->
 
 <section class="section">
@@ -39,11 +39,11 @@
 </template>
 <script>
 import styles from '../../config/styles'
-import StockCustomAction from './StockCustomAction.vue';
+import PriceCustomAction from './PriceCustomAction.vue';
 
 export default {
   mixins: [styles],
-  name: 'category-list',
+  name: 'price-list',
   data() {
     return {
       startOnLoad: true,
@@ -51,7 +51,7 @@ export default {
       fields: [
           {
               name: 'name',
-              title: 'Nama Barang',
+              title: 'Nama',
               sortField: 'name'
           },
           {
@@ -60,22 +60,12 @@ export default {
               sortField: 'category_name'
           },
           {
-              name: 'qty',
-              title: 'Qty',
-              sortField: 'qty'
-          },
-          {
               name: 'price',
               title: 'Harga',
               sortField: 'price'
           },
           {
-              name: 'created_at',
-              title: 'Tanggal Input',
-              sortField: 'created_at'
-          },
-          {
-              name: StockCustomAction,
+              name: PriceCustomAction,
               title: ''
           }, 
       ],

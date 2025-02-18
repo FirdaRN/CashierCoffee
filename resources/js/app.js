@@ -2,7 +2,7 @@ import "./bootstrap";
 import { createApp } from "vue";
 import App from "./components/App.vue";
 import CategoryList from "./components/Category/List.vue";
-import StockList from "./components/Stock/List.vue";
+import PriceList from "./components/Price/List.vue";
 import Detail from "./components/Detail.vue";
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -14,9 +14,9 @@ const routes = [
       component: CategoryList
     },
     { 
-      name:'stock-list', 
-      path: '/stock-list', 
-      component: StockList
+      name:'price-list', 
+      path: '/price-list', 
+      component: PriceList
     },
   ]
 

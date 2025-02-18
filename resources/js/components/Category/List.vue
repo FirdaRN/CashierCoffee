@@ -55,11 +55,6 @@ export default {
               sortField: 'name'
           },
           {
-              name: 'created_at',
-              title: 'Tanggal Input',
-              sortField: 'created_at'
-          },
-          {
               name: CategoryCustomAction,
               title: ''
           }, 
