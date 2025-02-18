@@ -4,12 +4,7 @@
   <i class="bi bi-list toggle-sidebar-btn"></i>
 </div><!-- End Logo -->
 
-<div class="search-bar">
-  <form class="search-form d-flex align-items-center" method="POST" action="#">
-    <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-    <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-  </form>
-</div><!-- End Search Bar -->
+
 
 <nav class="header-nav ms-auto">
   <ul class="d-flex align-items-center">
@@ -239,14 +234,14 @@
     </a>
     <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
       <li>
-        <a href="tables-general.html">
+        <router-link id="category" :to="{ name:'list' }">
           <i class="bi bi-circle"></i><span>Kategori</span>
-        </a>
+        </router-link>
       </li>
       <li>
-        <a href="tables-data.html">
+        <router-link id="stock" :to="{ name:'detail' }">
           <i class="bi bi-circle"></i><span>Stok Barang</span>
-        </a>
+        </router-link>
       </li>
     </ul>
   </li><!-- End Tables Nav -->
