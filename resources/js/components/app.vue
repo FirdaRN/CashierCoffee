@@ -19,8 +19,6 @@ export default {
     console.log('mounted')
   }
 };
-
-
 </script>
 <style scoped>
 h1 {
@@ -28,3 +26,4 @@ h1 {
   text-align: center;
 }
 </style>
+<style src="@vueform/multiselect/themes/default.css"></style>

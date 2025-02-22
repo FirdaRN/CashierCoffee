@@ -9,7 +9,11 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <input-text type="text" class="col-md-12" caption="Nama Kategori" placeholder="Masukkan Nama Kategori" v-model:value="form.name" :maxlength="25"></input-text>
+                        <input-text type="text" class="col-md-12" caption="Nama Kategori" placeholder="Masukkan Nama Kategori" v-model:value="form.name" :maxlength="25">
+                            <template v-slot:validation>
+                                <p class="help-block">{{ validation.firstError('form.name') }}</p>
+                            </template>                        
+                        </input-text>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -23,8 +27,11 @@
 <script>
     import _ from 'lodash';
     import { Modal } from 'bootstrap';
+    import SimpleVueValidation from 'simple-vue-validator';
+    const Validator = SimpleVueValidation.Validator;
     export default {
         name: 'modal-category',
+        mixins: [SimpleVueValidation.mixin],
         props: {
             modal: {
                 type: Object,
@@ -60,47 +67,57 @@
                 this.showModal.show();
             },
             submit() {
-                this.$root.is_loading = true;
+                this.$validate()
+                    .then(success => {
+                        if (success) {
+                            this.$root.is_loading = true;
 
-                let urlAction = '/api/v1/category/add';
-                if (this.modal.type === 'edit') {
-                    urlAction = `/api/v1/category/update/${this.modal.data.id}`;
-                }
+                            let urlAction = '/api/v1/category/add';
+                            if (this.modal.type === 'edit') {
+                                urlAction = `/api/v1/category/update/${this.modal.data.id}`;
+                            }
 
-                axios.post(urlAction, this.form).then((response) => {
-                    this.$root.is_loading = false;
-                    if (response.data.error) {
-                        _.each(response.data.messages, (error) => {
-                            this.$root.flash_messages.push({
-                                'info': 'warning',
-                                'message': error
+                            axios.post(urlAction, this.form).then((response) => {
+                                this.$root.is_loading = false;
+                                if (response.data.error) {
+                                    _.each(response.data.messages, (error) => {
+                                        this.$root.flash_messages.push({
+                                            'info': 'warning',
+                                            'message': error
+                                        });
+                                    });                    
+                                }
+
+                                if (response.data.success) {
+                                    this.$root.flash_messages.push({
+                                        'info'      :   'info',
+                                        'message'   :  response.data.messages
+                                    });
+
+                                    this.showModal.hide();
+                                    this.emitter.emit('master-category:vuetable:refresh');
+                                }
+                            }, (response) => {
+                                this.$root.is_loading = false;
+                                if (response.status === 403) {
+                                    this.$root.flash_messages.push({
+                                        'info'      :   'warning',
+                                        'message'   :   response.data
+                                    });
+                                } else {
+                                    this.$root.flash_messages.push({
+                                        'info'      :   'warning',
+                                        'message'   :   'Category Failed to Added'
+                                    });
+                                }
                             });
-                        });                    
-                    }
-
-                    if (response.data.success) {
-                        this.$root.flash_messages.push({
-                            'info'      :   'info',
-                            'message'   :  response.data.messages
-                        });
-
-                        this.showModal.hide();
-                        this.emitter.emit('master-category:vuetable:refresh');
-                    }
-                }, (response) => {
-                    this.$root.is_loading = false;
-                    if (response.status === 403) {
-                        this.$root.flash_messages.push({
-                            'info'      :   'warning',
-                            'message'   :   response.data
-                        });
-                    } else {
-                        this.$root.flash_messages.push({
-                            'info'      :   'warning',
-                            'message'   :   'Category Failed to Added'
-                        });
-                    }
-                });
+                        } else {
+                            if (this.validation.errors.length > 0) {
+                                let firstField = _.head(this.validation.errors).field.replace('form.', '');
+                                this.$refs[firstField].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            }
+                        }
+                    });
             },
             closeModal() {
                 this.modalComponents.splice(_.findIndex(this.modalComponents, (o) => o.component === this.$options.name), 1);
@@ -109,6 +126,12 @@
         },
         components: {
             'input-text': require('../Global/Partials/InputText.vue').default,
+        },
+        validators: {
+            'form.name': function (value) {
+                let msg = 'Nama harus diisi';
+                return Validator.value(value).required(msg);
+            }
         }
     }
 </script>
