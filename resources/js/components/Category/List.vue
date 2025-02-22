@@ -10,6 +10,10 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
+          <div class="add-button d-flex justify-content-end">
+            <button class="btn btn-outline-primary" @click="addCategory"><i class="bi bi-plus-circle" style="margin-right: 10px;"></i>Tambah Kategori</button>
+          </div>
+
           <vuetable :api-url="target"
                     :fields="fields"
                     data-path="products"
@@ -61,6 +65,12 @@ export default {
       ],
       params: {},
       perPage: 10,
+    }
+  },
+  methods: {
+    addCategory: function() {
+      let data = {};
+      this.emitter.emit('modal.show', { component: 'modal-category', type: 'add', data: data });      
     }
   },
   components: {

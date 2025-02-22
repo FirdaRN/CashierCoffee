@@ -1,5 +1,5 @@
 const mix = require('laravel-mix');
-require('laravel-vue-lang/mix');
+// require('laravel-vue-lang/mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -17,18 +17,18 @@ mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         //
     ]);
-mix.webpackConfig({
-    resolve: {
-        alias: {
-            '@lang': path.resolve('./resources/cms-localization'),
-        },
-    },
-    module: {
-        rules: [
-            {
-                test: /resources[\\\/]cms-localization.+\.(php)$/,
-                loader: 'php-array-loader',
-            },
-        ],
-    },
-    });  
+// mix.webpackConfig({
+//     resolve: {
+//         alias: {
+//             '@lang': path.resolve('./resources/cms-localization'),
+//         },
+//     },
+//     module: {
+//         rules: [
+//             {
+//                 test: /resources[\\\/]cms-localization.+\.(php)$/,
+//                 loader: 'php-array-loader',
+//             },
+//         ],
+//     },
+//     });  
