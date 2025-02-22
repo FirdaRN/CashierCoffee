@@ -20,6 +20,7 @@
         },
         components: {
             'modal-category': require('../../Category/ModalCategory.vue').default,
+            'modal-price': require('../../Price/ModalPrice.vue').default,
         }
     }
 </script>

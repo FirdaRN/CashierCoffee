@@ -1,15 +1,21 @@
 <template>
-    <div id="modal-category" class="modal fade" tabindex="-1" role="dialog" style="display: block;">
+    <div id="modal-price" class="modal fade" tabindex="-1" role="dialog" style="display: block;">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-                    <h4 class="modal-title">Kategori</h4>
+                    <h4 class="modal-title">Harga</h4>
                     <button type="button" class="btn-close" aria-label="Close" @click="closeModal"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <input-text type="text" class="col-md-12" caption="Nama Kategori" placeholder="Masukkan Nama Kategori" v-model:value="form.name" :maxlength="25"></input-text>
+                        <input-text type="text" class="col-md-12" caption="Nama" placeholder="Masukkan Nama" v-model:value="form.name" :maxlength="25"></input-text>
+                    </div>
+                    <div class="row">
+                        <input-text type="text" class="col-md-12" caption="Kategori" placeholder="Masukkan Kategori" v-model:value="form.category" :maxlength="25"></input-text>
+                    </div>
+                    <div class="row">
+                        <input-text type="text" class="col-md-12" caption="Harga" placeholder="Masukkan Harga" v-model:value="form.price" :maxlength="25"></input-text>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -24,7 +30,7 @@
     import _ from 'lodash';
     import { Modal } from 'bootstrap';
     export default {
-        name: 'modal-category',
+        name: 'modal-price',
         props: {
             modal: {
                 type: Object,
@@ -41,6 +47,8 @@
             return {
                 form: {
                     name: '',
+                    category: '',
+                    price: '',
                 },
                 showModal: null
             }
@@ -55,16 +63,16 @@
         },
         methods: {
             init() {
-                const modalElement = document.getElementById('modal-category');
+                const modalElement = document.getElementById('modal-price');
                 this.showModal = new Modal(modalElement);
                 this.showModal.show();
             },
             submit() {
                 this.$root.is_loading = true;
 
-                let urlAction = '/api/v1/category/add';
+                let urlAction = '/api/v1/price/add';
                 if (this.modal.type === 'edit') {
-                    urlAction = `/api/v1/category/update/${this.modal.data.id}`;
+                    urlAction = `/api/v1/price/update/${this.modal.data.id}`;
                 }
 
                 axios.post(urlAction, this.form).then((response) => {
@@ -85,7 +93,7 @@
                         });
 
                         this.showModal.hide();
-                        this.emitter.emit('master-category:vuetable:refresh');
+                        this.emitter.emit('master-price:vuetable:refresh');
                     }
                 }, (response) => {
                     this.$root.is_loading = false;
@@ -97,7 +105,7 @@
                     } else {
                         this.$root.flash_messages.push({
                             'info'      :   'warning',
-                            'message'   :   'Category Failed to Added'
+                            'message'   :   'price Failed to Added'
                         });
                     }
                 });

@@ -10,6 +10,9 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
+          <div class="add-button d-flex justify-content-end">
+            <button class="btn btn-outline-primary" @click="addPrice"><i class="bi bi-plus-circle" style="margin-right: 10px;"></i>Tambah Harga</button>
+          </div>
           <vuetable :api-url="target"
                     :fields="fields"
                     data-path="products"
@@ -71,6 +74,12 @@ export default {
       ],
       params: {},
       perPage: 10,
+    }
+  },
+  methods: {
+    addPrice: function() {
+      let data = {};
+      this.emitter.emit('modal.show', { component: 'modal-price', type: 'add', data: data });      
     }
   },
   components: {
